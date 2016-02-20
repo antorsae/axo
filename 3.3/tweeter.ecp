@@ -1,0 +1,5 @@
+tweeter = \
+-el:RThighpass,1440,0.707 \
+-el:RThighpass,1440,0.707 \
+-el:RTallpass2,500,0.6 \
+-el:RTallpass2,2600,0.6

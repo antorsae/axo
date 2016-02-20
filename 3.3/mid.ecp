@@ -1,0 +1,10 @@
+mid = \
+-el:RTlowshelf,23.10672075,75.6306816,0.284325871 \
+-eadb:2.7 \
+-el:RTlowpass,1330,0.707 \
+-el:RTlowpass,1330,0.707 \
+-el:RTallpass2,500,0.6 \
+-el:RTparaeq,-7.6,480,0.6 \
+-el:RTparaeq,1.9,1000,1 \
+-el:RTparaeq,-6,3500,1
+

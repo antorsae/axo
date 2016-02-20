@@ -1,0 +1,7 @@
+woofer = -el:RTlowpass,92,0.707 \
+-el:RTlowpass,92,0.707 \
+-el:RTlowshelf,16.10850671,45.49725266,0.469044 \
+-el:RTlowshelf,16.10850671,45.49725266,0.469044 \
+-el:RTparaeq,-10,230,1.4
+
+

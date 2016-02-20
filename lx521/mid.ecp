@@ -1,0 +1,2 @@
+# mid.ecp
+mid = -el:RTlr4lowpass,6299 -el:RThighshelf,24.08,14240,0.7914 -el:RTparaeq,-5.117,1676,0.2177 -el:RTlowshelf,10.69,105.3,0.5323
