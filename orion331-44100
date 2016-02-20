@@ -1,0 +1,77 @@
+## DEFAULT GENERAL SETTINGS ##
+
+
+float_bits: 64;             # internal floating point precision
+sampling_rate: 44100;       # sampling rate in Hz of audio interfaces
+filter_length: 8192,4;      # length of filters: 32768
+overflow_warnings: true;    # echo warnings to stderr if overflow occurs
+show_progress: true;        # echo filtering progress to stderr
+max_dither_table_size: 0;   # maximum size in bytes of precalculated dither
+allow_poll_mode: false;     # allow use of input poll mode
+modules_path: ".";          # extra path where to find BruteFIR modules
+monitor_rate: true;         # monitor sample rate
+powersave: false;           # pause filtering when input is zero
+lock_memory: true;          # try to lock memory if realtime prio is set
+
+## LOGIC ##
+
+logic: "cli" { port: 3000; };
+
+## INPUT, OUTPUT ##                                  
+
+input "Lin", "Rin" {
+    device: "file" {path: "/dev/stdin";};  # module and parameters to get audio
+    sample: "S16_LE";     # sample format
+    channels: 2/0,1;    # number of open channels / which to use
+    delay: 0,0;         # delay in samples for each channel
+    maxdelay: -1;       # max delay for variable delays
+    mute: false, false; # mute active on startup for each channel
+};
+ 
+# output "LTout", "LMout", "LWout", "RTout", "RMout", "RWout" {
+output "LTout", "LMout", "LWout","Null1","RTout", "RMout", "RWout", "Null2" {
+        device: "file" { path: "/dev/stdout"; };
+        sample: "S24_LE";   # sample format
+        channels: 8;        # number of open channels / which to use
+        delay: 0,0;         # delay in samples for each channel
+        maxdelay: 100;      # max delay for variable delays
+        mute: false,false;  # mute active on startup for each channel
+        dither: false;      # no dither for 32 bit output
+};
+
+coeff "tweeter" {
+        filename: "./impulses/orion331-T-44100.raw";
+        format: "FLOAT_LE";
+	    attenuation: 11;
+};
+
+coeff "mid" {
+        filename: "./impulses/orion331-M-44100.raw";
+        format: "FLOAT_LE";
+	    attenuation: 11;
+};
+
+coeff "woofer" {
+        filename: "./impulses/orion331-W-44100.raw";
+        format: "FLOAT_LE";
+	    attenuation: 11;
+};
+
+
+filter "tweeter filter" {
+        inputs: "Lin", "Rin";
+        outputs: "LTout", "RTout";
+        coeff: "tweeter";
+};
+
+filter "mid filter" {
+        inputs: "Lin", "Rin";
+        outputs: "LMout", "RMout";
+        coeff: "mid";
+};
+
+filter "woofer filter" {
+        inputs: "Lin", "Rin";
+        outputs: "LWout", "RWout";
+        coeff: "woofer";
+};
