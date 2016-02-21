@@ -4,6 +4,7 @@
 float_bits: 64;             # internal floating point precision
 sampling_rate: 44100;       # sampling rate in Hz of audio interfaces
 filter_length: 8192,4;      # length of filters: 32768
+#filter_length: 1024,32;      # length of filters: 32768
 overflow_warnings: true;    # echo warnings to stderr if overflow occurs
 show_progress: true;        # echo filtering progress to stderr
 max_dither_table_size: 0;   # maximum size in bytes of precalculated dither
@@ -28,11 +29,11 @@ input "Lin", "Rin" {
     mute: false, false; # mute active on startup for each channel
 };
  
-# output "LTout", "LMout", "LWout", "RTout", "RMout", "RWout" {
-output "LTout", "LMout", "LWout","Null1","RTout", "RMout", "RWout", "Null2" {
+# needs to use a suitable 6 ch -> 8 ch mapper at output
+output "LTout", "LMout", "LWout", "RTout", "RMout", "RWout" {
         device: "file" { path: "/dev/stdout"; };
         sample: "S24_LE";   # sample format
-        channels: 8;        # number of open channels / which to use
+        channels: 6;        # number of open channels / which to use
         delay: 0,0;         # delay in samples for each channel
         maxdelay: 100;      # max delay for variable delays
         mute: false,false;  # mute active on startup for each channel
@@ -42,19 +43,19 @@ output "LTout", "LMout", "LWout","Null1","RTout", "RMout", "RWout", "Null2" {
 coeff "tweeter" {
         filename: "./impulses/orion331-T-44100.raw";
         format: "FLOAT_LE";
-	    attenuation: 11;
+	    attenuation: 12;
 };
 
 coeff "mid" {
         filename: "./impulses/orion331-M-44100.raw";
         format: "FLOAT_LE";
-	    attenuation: 11;
+	    attenuation: 12;
 };
 
 coeff "woofer" {
         filename: "./impulses/orion331-W-44100.raw";
         format: "FLOAT_LE";
-	    attenuation: 11;
+	    attenuation: 12;
 };
 
 
