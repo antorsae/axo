@@ -1,0 +1,21 @@
+# Fc=Sqrt(F1 F2), A=20Log10(F2/F1), Q=Fc/(F2-F1)
+
+# U1B
+# 86-172 SHP1 W-M EQ
+# 0 to 6 dB
+# A=- 6.020599913
+# Fc= 121.6223664
+# Q=  1.414213562
+
+# U2B
+# 1450-2123 SLP2 XO (it's really a passive shelving low pass followed by unity gain)
+# 3.3 to 0 dB
+# A = 3.311639839
+# Fc= 1754.522727
+# Q = 2.607017425
+
+pre1 = \
+-eadb:-10 \
+-el:RThighshelf,6.020599913,121.6223664,1.414213562 \
+-el:RTlowshelf,3.311639839,1754.522727,2.607017425 
+

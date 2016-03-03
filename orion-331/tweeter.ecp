@@ -1,0 +1,24 @@
+# http://www.linkwitzlab.com/images/graphics/orion331-2.png
+#
+#   1440 HP    Gain   1470 PH  1470 PH   1440 HP
+#  >  U4A    >  U6A  >  U6B  >   U5A    >  U5B
+#             +1.82dB  78 deg   78 deg
+#                to
+#             -0.26dB 
+#
+# Why 1470 PH and HP @ 1440?
+
+# U6B = U5AB 1470 PH Delay
+# http://www.linkwitzlab.com/filters.htm#4
+# Fp = 1/(2PiRC) = 1 / (2 Pi 3480 22 10^-9) = 2079... NOT 1470 (?)
+# R  = 3.48k, C= 22nF
+# T0 = 2RC = 153.120uS
+# Total U9A + U9B = 306.24uS
+#
+# Why different than 19.05cm (M-T distance) / 343.2 = 686.4uS ?
+# http://www.linkwitzlab.com/models.htm#E
+# 
+tweeter = \
+-el:RTlr4hipass,1440 \
+-eadb:0.78 \
+-el:delay_0.01s,0.00030624,1

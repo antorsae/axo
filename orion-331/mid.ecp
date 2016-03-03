@@ -1,0 +1,35 @@
+# http://www.linkwitzlab.com/images/graphics/orion331-1.png
+# http://www.linkwitzlab.com/images/graphics/orion331-2.png
+
+# Really starts on page 2 @ TP11B (pre2 is page 1)
+#   
+#  1440LP    1440 LP     4619NF    400NF    20-258SLP
+#   U4B    >   U7A     >   U7B   >  U8B  >    U8A
+#                                          26.3-4.1dB
+#
+# U7B 4619 NF
+# http://www.linkwitzlab.com/filters.htm#7 
+# A=20Log(1+R1/R3)
+# R1=5.11k
+# R3=R308+R309=147+422=569
+# A=20Log(1+5110/569)=19.0661726747928
+# Q=2PiF0L/R3=2 Pi 4619 53*10^-3 / 569 = 2.703282505263116039818363 
+
+# U8B 400 NF
+# R1=5.11k
+# R3=R51+R307+R52=2.61k+1+464=3075
+# A=20Log(1+5110/3075) = 8.50347127273049405764
+# Q=2PiF0L/R3=2 Pi 505 1.5 / 3075 = 1.5478090634759469
+
+# U8A 20-258 SLP 26.3 dB to 4.1dB 
+# Fc= Sqrt(20*258) = 71.83313998
+# A=20Log(20/258)=-22.21179421
+# Q=Fc/(F1-F2)=0.301819916
+
+mid = \
+-el:RTlowshelf,22.21179421,71.83313998,0.301819916 \
+-eadb:4.1 \
+-el:RTlr4lowpass,1470 \
+-el:RTparaeq,-19.0661726747928,4619,2.70328250526311 \
+-el:RTparaeq,-8.5034712727304940,400,1.547809063475
+

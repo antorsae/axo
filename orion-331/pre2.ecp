@@ -1,0 +1,20 @@
+# http://www.linkwitzlab.com/images/graphics/orion331-1.png
+# 
+#   92 HP   92 HP    92 PH   92 PH
+#    U2A  >  U2B   >  U3A   > U3B
+#      
+
+# http://www.linkwitzlab.com/filters.htm#4
+# U3A T0=2RC = 2 R214 C208 = 2*2.37k*120nF=568.8 uS
+# U4B T0=2RC = 2 R217 C210 = 2*2.37k* 82nF=388.8 uS
+# Total delay 957.6uS
+#
+# Distance from top  SW  to Mid is 40.9575cm /343.2 (speed sound) = 0.00119340034s = 1193uS delay (25% more) 
+# Distance form both SWs to Mid is 56.515 cm /343.2 (speed sound) = 0.16467074592  = 1646uS delay
+# 
+# How is 957.6uS right?
+
+pre2 = \
+-el:RTlr4hipass,92 \
+-el:delay_0.01s,0.0009576,1
+
