@@ -3,8 +3,9 @@
 
 float_bits: 64;             # internal floating point precision
 sampling_rate: 44100;       # sampling rate in Hz of audio interfaces
-filter_length: 8192,4;      # length of filters: 32768
-#filter_length: 1024,32;      # length of filters: 32768
+filter_length: 8192,4;      # length of filters: 32768 
+                            # (for Orion impulses below this guarantees full
+                            #  non-zero length of each driver impulse response)
 overflow_warnings: true;    # echo warnings to stderr if overflow occurs
 show_progress: true;        # echo filtering progress to stderr
 max_dither_table_size: 0;   # maximum size in bytes of precalculated dither
@@ -37,25 +38,25 @@ output "LTout", "LMout", "LWout", "RTout", "RMout", "RWout" {
         delay: 0,0;         # delay in samples for each channel
         maxdelay: 100;      # max delay for variable delays
         mute: false,false;  # mute active on startup for each channel
-        dither: false;      # no dither for 32 bit output
+        dither: true;      # no dither for 32 bit output
 };
 
 coeff "tweeter" {
-        filename: "./impulses/orion331-T-44100.raw";
+        filename: "/home/pi/dsp/impulses/orion331-T-44100.raw";
         format: "FLOAT_LE";
-	    attenuation: 12;
+	    attenuation: 16.5;
 };
 
 coeff "mid" {
-        filename: "./impulses/orion331-M-44100.raw";
+        filename: "/home/pi/dsp/impulses/orion331-M-44100.raw";
         format: "FLOAT_LE";
-	    attenuation: 12;
+	    attenuation: 16.5;
 };
 
 coeff "woofer" {
-        filename: "./impulses/orion331-W-44100.raw";
+        filename: "/home/pi/dsp/impulses/orion331-W-44100.raw";
         format: "FLOAT_LE";
-	    attenuation: 12;
+	    attenuation: 16.5;
 };
 
 

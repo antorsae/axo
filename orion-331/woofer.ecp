@@ -1,0 +1,25 @@
+# http://www.linkwitzlab.com/images/graphics/orion331-1.png
+# http://www.linkwitzlab.com/images/graphics/orion331-2.png
+# U9A + U11A = 92 Hz Lowpass (LP2*2)
+# U9B (attn) ranges from -6.4 dB to -11.6 dB +- 2.6 dB
+
+# U11B 19.4-110 SLP: 15.1 dB to 0 dB
+# fc=  46.19523785
+# A =  15.0718191
+# Q =   0.509881212
+
+# U10B 19.5-286 SLP: 23.3 to 0 dB
+# fc=  74.6793144 
+# A =  23.32662844
+# Q =   0.280222568
+
+# U12A (213 notch filter) only needed for 3.5+
+
+woofer = \
+-el:RTlr4lowpass,92 \
+-eadb:-7.9 \
+-el:RTlowshelf,15.0718191,46.19523785,0.509881212 \
+-el:RTlowshelf,23.32662844,74.6793144,0.280222568 
+# -el:RTparaeq,-14.44045573519,213,9.1876
+
+
