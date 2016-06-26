@@ -4,8 +4,7 @@ sudo apt-get -y install ecasound sox mpd cmake ladspa-sdk cmt mpc
 sudo usermod -a -G video mpd
 
 # install Rtaylor plugins
-wget http://faculty.tru.ca/rtaylor/rt-plugins/rt-plugins-0.0.5.tar.gz
-tar xf rt-plugins-0.0.5.tar.gz
+curl http://faculty.tru.ca/rtaylor/rt-plugins/rt-plugins-0.0.5.tar.gz | tar xf
 cd rt-plugins-0.0.5
 echo 'set(CMAKE_INSTALL_PREFIX "/usr")' >> CMakeLists.txt
 cd build
@@ -25,6 +24,37 @@ cd
 git clone https://github.com/antorsae/hdmiplay
 cd hdmiplay
 make
+
+# mpd with sacd support etc
+git clone git://git.musicpd.org/manisiutkin/mpd.git
+cd mpd/
+./autogen.sh
+sudo apt-get -y install libmad0-dev libmpg123-dev libid3tag0-dev \
+  libflac-dev libvorbis-dev libopus-dev \
+  libadplug-dev libaudiofile-dev libsndfile1-dev libfaad-dev \
+  libfluidsynth-dev libgme-dev libmikmod2-dev libmodplug-dev \
+  libmpcdec-dev libwavpack-dev libwildmidi-dev \
+  libsidplay2-dev libsidutils-dev libresid-builder-dev \
+  libavcodec-dev libavformat-dev \
+  libmp3lame-dev \
+  libsamplerate0-dev libsoxr-dev \
+  libbz2-dev libcdio-paranoia-dev libiso9660-dev libmms-dev \
+  libzzip-dev \
+  libcurl4-gnutls-dev libyajl-dev libexpat-dev \
+  libasound2-dev libao-dev libjack-jackd2-dev libopenal-dev \
+  libpulse-dev libroar-dev libshout3-dev \
+  libmpdclient-dev \
+  libnfs-dev libsmbclient-dev \
+  libupnp-dev \
+  libavahi-client-dev \
+  libsqlite3-dev \
+  libsystemd-daemon-dev libwrap0-dev \
+  libboost-dev \
+  libicu-dev libssl-dev
+./configure --enable-pipe-output --enable-sacdiso --enable-dvdaiso --enable-iso9660 --prefix=
+make -j
+
+
 
 # add output to mpd
 sudo cat >> /etc/mpd.conf <<DELIM
