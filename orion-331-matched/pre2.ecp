@@ -4,17 +4,13 @@
 #    U2A  >  U2B   >  U3A   > U3B
 #      
 
-# http://www.linkwitzlab.com/filters.htm#4
-# U3A T0=2RC = 2 R214 C208 = 2*2.37k*120nF=568.8 uS
-# U4B T0=2RC = 2 R217 C210 = 2*2.37k* 82nF=388.8 uS
-# Total delay 957.6uS
-#
-# Distance from top  SW  to Mid is 40.9575cm /343.2 (speed sound) = 0.00119340034s = 1193uS delay (25% more) 
-# Distance form both SWs to Mid is 56.515 cm /343.2 (speed sound) = 0.16467074592  = 1646uS delay
-# 
-# How is 957.6uS right?
+# Delay:
+# https://www.wolframalpha.com/input/?i=(2+2.37e3+120e-9+%2F+(1+%2B+(92%2F(+(1%2F(2+PI+2.37e3+120e-9))))%5E2)+)+%2B+2+2.37e3+82e-9+%2F+(1+%2B+(92%2F(+(1%2F(2+PI+2.37e3+82e-9))))%5E2)
+
 
 pre2 = \
 -el:RTlr4hipass,92 \
--el:delay_0.01s,7.24637681159e-05,1 
+-el:delay_0.01s,0.000937668,1
+#-el:RTallpass1,559.61 \
+#-el:RTallpass1,818.7 
 
