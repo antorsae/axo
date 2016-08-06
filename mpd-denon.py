@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import serial
 from subprocess import call
 import gobject
 from mpdor.client import Client
@@ -7,7 +8,10 @@ try:
 except:
     colored = False
 
-class TestClient(Client):
+class MPDClient(Client):
+
+    denon = serial.Serial('/dev/ttyUSB0')
+
     def on_player_song_start(self, client, songdata):
         if "artist" in songdata.__dict__:
             if colored:
@@ -25,9 +29,9 @@ class TestClient(Client):
     def on_player_change(self, client, state): 
     	print "changed", state
     	if state == "play":
-    		call("./denon.sh cmd PWON", shell=True)
+            MPDClient.denon.write(b'PWON\r')
     	elif state == "stop":
-    		call("./denon.sh cmd PWSTANDBY", shell=True)
+            MPDClient.denon.write(b'PWSTANDBY\r')
 
     def on_player_stopped(self, client): print "stopped"
     def on_player_paused(self, client): print "paused"
@@ -37,5 +41,5 @@ class TestClient(Client):
     def on_options_change(self, client, options): print options
 
 if __name__ == "__main__":
-    t = TestClient()
+    t = MPDClient()
     gobject.MainLoop().run()
