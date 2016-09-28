@@ -65,6 +65,26 @@ audio_output {
 }
 DELIM
 
+# add mpd-denon systemd service
+# TODO: import dependencies
+cat DELIM < | sudo tee -a /lib/systemd/system/mpd-denon.service
+[Unit]
+Description=MPD listener to switch on/off Denon receiver/amp
+After=mpd.service
+
+[Service]
+User=pi
+WorkingDirectory=/home/pi/axo
+Type=idle
+ExecStart=/usr/bin/python /home/pi/axo/mpd-denon.py > /home/pi/axo/mpd-denon.log 2>&1
+
+[Install]
+WantedBy=multi-user.target
+DELIM
+
+# enable it
+sudo service mpd-denon enable
+
 # force 8 channel audio out on HDMI
 cat << DELIM | sudo tee -a /boot/config.txt
 hdmi_drive=2
